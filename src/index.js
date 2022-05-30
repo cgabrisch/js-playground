@@ -9,4 +9,17 @@ function makeHelloWorld() {
 }
 
 document.body.appendChild(makeHelloWorld());
-document.body.appendChild(new TickerComponent(2500).element);
+const tickerComp = new TickerComponent(500);
+document.body.appendChild(tickerComp.element);
+
+function activateTicker() {
+  tickerComp.startTicking();
+  setTimeout(() => deactivateTicker(), 15000);
+}
+
+function deactivateTicker() {
+  tickerComp.stopTicking();
+  setTimeout(() => activateTicker(), 15000);
+}
+
+activateTicker();
