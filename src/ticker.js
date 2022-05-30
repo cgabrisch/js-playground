@@ -1,11 +1,11 @@
-function createTickerElem() {
-  const ticker = document.createElement('div');
-  
-  setInterval(() => {
-    ticker.innerHTML = new Date().toLocaleTimeString();
-  }, 5000);
-
-  return ticker;
+class TickerComponent {
+  constructor(updateInterval) {
+    this.element = document.createElement('div');
+    
+    setInterval(() => {
+      this.element.innerHTML = new Date().toLocaleTimeString();
+    }, updateInterval);
+  }
 }
 
-export { createTickerElem };
+export { TickerComponent };

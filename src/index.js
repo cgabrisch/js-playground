@@ -1,4 +1,4 @@
-import { createTickerElem } from './ticker.js';
+import { TickerComponent } from './ticker.js';
 
 function makeHelloWorld() {
   const element = document.createElement('div');
@@ -9,4 +9,4 @@ function makeHelloWorld() {
 }
 
 document.body.appendChild(makeHelloWorld());
-document.body.appendChild(createTickerElem());
+document.body.appendChild(new TickerComponent(2500).element);
