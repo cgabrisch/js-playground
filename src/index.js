@@ -1,4 +1,7 @@
 import { TickerComponent } from './ticker.js';
+import { testObservables } from './observables.js';
+
+testObservables();
 
 function makeHelloWorld() {
   const element = document.createElement('div');
