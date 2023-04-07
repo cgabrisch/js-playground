@@ -25,6 +25,22 @@ class TickerComponent {
     this.element.innerHTML = 'Ticker inactive';
     delete this.intervalId;
   }
+
+  startToggling() {
+    const that = this;
+    function deactivateTicker() {
+      that.stopTicking();
+      setTimeout(() => activateTicker(), 15000);
+    }
+  
+    function activateTicker() {
+      that.startTicking();
+      setTimeout(() => deactivateTicker(), 15000);
+    }
+  
+    activateTicker();
+  }
 }
+
 
 export { TickerComponent };
