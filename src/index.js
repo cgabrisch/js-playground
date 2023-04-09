@@ -1,4 +1,4 @@
-import { TickerComponent } from './ticker.js';
+import { TickerComponent, TickerComponentController } from './ticker.js';
 import { testObservables } from './observables.js';
 
 testObservables();
@@ -12,7 +12,12 @@ function makeHelloWorld() {
 }
 
 document.body.appendChild(makeHelloWorld());
-const tickerComp = new TickerComponent(500);
-document.body.appendChild(tickerComp.element);
 
-tickerComp.startToggling();
+const tickerComp = new TickerComponent(500);
+const tickerCompController = new TickerComponentController(tickerComp);
+
+const tickerDiv = document.createElement('div');
+tickerDiv.append(tickerCompController.element, tickerComp.element);
+document.body.appendChild(tickerDiv);
+
+tickerCompController.startToggling();
