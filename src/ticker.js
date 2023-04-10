@@ -57,32 +57,12 @@ class TickerComponentController {
     const intervalLabel = document.createElement('label');
     intervalLabel.append('Toggle interval (sec)', intervalInput);
 
-    const tickerModeRadioInactive = document.createElement('input');
-    tickerModeRadioInactive.setAttribute('type', 'radio');
-    tickerModeRadioInactive.setAttribute('name', 'tickermode');
-    tickerModeRadioInactive.setAttribute('value', TickerModes.inactive);
-    tickerModeRadioInactive.onchange = () => this.tickerMode = TickerModes.inactive;
-    const tickerModeLabelInactive = document.createElement('label');
-    tickerModeLabelInactive.append(tickerModeRadioInactive, 'Inactive');
-
-    const tickerModeRadioActive = document.createElement('input');
-    tickerModeRadioActive.setAttribute('type', 'radio');
-    tickerModeRadioActive.setAttribute('name', 'tickermode');
-    tickerModeRadioActive.setAttribute('value', TickerModes.active);
-    tickerModeRadioActive.onchange = () => this.tickerMode = TickerModes.active;
-    const tickerModeLabelActive = document.createElement('label');
-    tickerModeLabelActive.append(tickerModeRadioActive, 'Active');
-
-    const tickerModeRadioToggling = document.createElement('input');
-    tickerModeRadioToggling.setAttribute('type', 'radio');
-    tickerModeRadioToggling.setAttribute('name', 'tickermode');
-    tickerModeRadioToggling.setAttribute('value', TickerModes.toggling);
-    tickerModeRadioToggling.onchange = () => this.tickerMode = TickerModes.toggling;
-    const tickerModeLabelToggling = document.createElement('label');
-    tickerModeLabelToggling.append(tickerModeRadioToggling, 'Toggling');
+    const radioHtmlInactive = this.#createRadioHtml(TickerModes.inactive, 'Inactive');
+    const radioHtmlActive = this.#createRadioHtml(TickerModes.active, 'Active');
+    const radioHtmlToggling = this.#createRadioHtml(TickerModes.toggling, 'Toggling');
 
     const tickerModeRadios = document.createElement('div');
-    tickerModeRadios.append(tickerModeLabelInactive, tickerModeLabelActive, tickerModeLabelToggling);
+    tickerModeRadios.append(radioHtmlInactive, radioHtmlActive, radioHtmlToggling);
 
     const htmlRepresentation = document.createElement('fieldset');
     htmlRepresentation.append(tickerModeRadios, intervalLabel);
@@ -147,6 +127,19 @@ class TickerComponentController {
     input.value = value;
 
     return value;
+  }
+
+  #createRadioHtml(tickerMode, capture) {
+    const radioButton = document.createElement('input');
+    radioButton.setAttribute('type', 'radio');
+    radioButton.setAttribute('name', 'tickermode');
+    radioButton.setAttribute('value', tickerMode);
+    radioButton.onchange = () => this.tickerMode = tickerMode;
+
+    const label = document.createElement('label');
+    label.append(radioButton, capture);
+
+    return label;
   }
 }
 
