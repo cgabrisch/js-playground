@@ -19,5 +19,3 @@ const tickerCompController = new TickerComponentController(tickerComp);
 const tickerDiv = document.createElement('div');
 tickerDiv.append(tickerCompController.element, tickerComp.element);
 document.body.appendChild(tickerDiv);
-
-tickerCompController.startToggling();

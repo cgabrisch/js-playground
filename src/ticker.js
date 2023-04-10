@@ -44,22 +44,83 @@ class TickerComponentController {
     const intervalLabel = document.createElement('label');
     intervalLabel.append('Toggle interval (sec)', intervalInput);
 
-    this.element = intervalLabel;
+    const tickerModeRadioInactive = document.createElement('input');
+    tickerModeRadioInactive.setAttribute('type', 'radio');
+    tickerModeRadioInactive.setAttribute('name', 'tickermode');
+    tickerModeRadioInactive.setAttribute('value', 'inactive');
+    tickerModeRadioInactive.onchange = () => this.tickerMode = 'inactive';
+    const tickerModeLabelInactive = document.createElement('label');
+    tickerModeLabelInactive.append(tickerModeRadioInactive, 'Inactive');
+
+    const tickerModeRadioActive = document.createElement('input');
+    tickerModeRadioActive.setAttribute('type', 'radio');
+    tickerModeRadioActive.setAttribute('name', 'tickermode');
+    tickerModeRadioActive.setAttribute('value', 'active');
+    tickerModeRadioActive.onchange = () => this.tickerMode = 'active';
+    const tickerModeLabelActive = document.createElement('label');
+    tickerModeLabelActive.append(tickerModeRadioActive, 'Active');
+
+    const tickerModeRadioToggling = document.createElement('input');
+    tickerModeRadioToggling.setAttribute('type', 'radio');
+    tickerModeRadioToggling.setAttribute('name', 'tickermode');
+    tickerModeRadioToggling.setAttribute('value', 'toggling');
+    tickerModeRadioToggling.onchange = () => this.tickerMode = 'toggling';
+    const tickerModeLabelToggling = document.createElement('label');
+    tickerModeLabelToggling.append(tickerModeRadioToggling, 'Toggling');
+
+    const tickerModeRadios = document.createElement('div');
+    tickerModeRadios.append(tickerModeLabelInactive, tickerModeLabelActive, tickerModeLabelToggling);
+
+    const htmlRepresentation = document.createElement('fieldset');
+    htmlRepresentation.append(tickerModeRadios, intervalLabel);
+
+    this.element = htmlRepresentation;
   }
 
-  startToggling() {
+
+  set tickerMode(tickerMode) {
+    switch (tickerMode) {
+      case 'active': {
+        this._stopToggling();
+        this.tickerComponent.startTicking();
+        break;
+      }
+      case 'inactive': {
+        this._stopToggling();
+        this.tickerComponent.stopTicking();
+        break;
+      }
+      case 'toggling': {
+        this._startToggling();
+        break;
+      }
+    }
+  }
+
+  _startToggling() {
+    if (!!this._togglingTimeoutId) {
+      return;
+    }
+
     const that = this;
     function deactivateTicker() {
       that.tickerComponent.stopTicking();
-      setTimeout(() => activateTicker(), that.intervalSec * 1000);
+      that._togglingTimeoutId = setTimeout(() => activateTicker(), that.intervalSec * 1000);
     }
   
     function activateTicker() {
       that.tickerComponent.startTicking();
-      setTimeout(() => deactivateTicker(), that.intervalSec * 1000);
+      that._togglingTimeoutId = setTimeout(() => deactivateTicker(), that.intervalSec * 1000);
     }
   
     activateTicker();
+  }
+
+  _stopToggling() {
+    if (!!this._togglingTimeoutId) {
+      clearTimeout(this._togglingTimeoutId);
+      delete this._togglingTimeoutId;
+    }
   }
 
   _getSanitizedIntValue(input, fallbackValue) {
