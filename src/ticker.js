@@ -27,6 +27,12 @@ class TickerComponent {
   }
 }
 
+const TickerModes = {
+  inactive: 'inactive',
+  active: 'active',
+  toggling: 'toggling'
+};
+
 class TickerComponentController {
   constructor(tickerComponent) {
     this.tickerComponent = tickerComponent;
@@ -47,24 +53,24 @@ class TickerComponentController {
     const tickerModeRadioInactive = document.createElement('input');
     tickerModeRadioInactive.setAttribute('type', 'radio');
     tickerModeRadioInactive.setAttribute('name', 'tickermode');
-    tickerModeRadioInactive.setAttribute('value', 'inactive');
-    tickerModeRadioInactive.onchange = () => this.tickerMode = 'inactive';
+    tickerModeRadioInactive.setAttribute('value', TickerModes.inactive);
+    tickerModeRadioInactive.onchange = () => this.tickerMode = TickerModes.inactive;
     const tickerModeLabelInactive = document.createElement('label');
     tickerModeLabelInactive.append(tickerModeRadioInactive, 'Inactive');
 
     const tickerModeRadioActive = document.createElement('input');
     tickerModeRadioActive.setAttribute('type', 'radio');
     tickerModeRadioActive.setAttribute('name', 'tickermode');
-    tickerModeRadioActive.setAttribute('value', 'active');
-    tickerModeRadioActive.onchange = () => this.tickerMode = 'active';
+    tickerModeRadioActive.setAttribute('value', TickerModes.active);
+    tickerModeRadioActive.onchange = () => this.tickerMode = TickerModes.active;
     const tickerModeLabelActive = document.createElement('label');
     tickerModeLabelActive.append(tickerModeRadioActive, 'Active');
 
     const tickerModeRadioToggling = document.createElement('input');
     tickerModeRadioToggling.setAttribute('type', 'radio');
     tickerModeRadioToggling.setAttribute('name', 'tickermode');
-    tickerModeRadioToggling.setAttribute('value', 'toggling');
-    tickerModeRadioToggling.onchange = () => this.tickerMode = 'toggling';
+    tickerModeRadioToggling.setAttribute('value', TickerModes.toggling);
+    tickerModeRadioToggling.onchange = () => this.tickerMode = TickerModes.toggling;
     const tickerModeLabelToggling = document.createElement('label');
     tickerModeLabelToggling.append(tickerModeRadioToggling, 'Toggling');
 
@@ -80,17 +86,17 @@ class TickerComponentController {
 
   set tickerMode(tickerMode) {
     switch (tickerMode) {
-      case 'active': {
+      case TickerModes.active: {
         this._stopToggling();
         this.tickerComponent.startTicking();
         break;
       }
-      case 'inactive': {
+      case TickerModes.inactive: {
         this._stopToggling();
         this.tickerComponent.stopTicking();
         break;
       }
-      case 'toggling': {
+      case TickerModes.toggling: {
         this._startToggling();
         break;
       }
@@ -137,4 +143,4 @@ class TickerComponentController {
   }
 }
 
-export { TickerComponent, TickerComponentController };
+export { TickerComponent, TickerComponentController, TickerModes };
