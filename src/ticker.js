@@ -32,19 +32,19 @@ class TickerComponentController {
     this.tickerComponent = tickerComponent;
     this.intervalSec = 15;
 
-    const input = document.createElement('input');
-    input.setAttribute('type', 'number');
-    input.setAttribute('min', 1);
-    input.setAttribute('max', 30);
-    input.setAttribute('value', this.intervalSec);
-    input.onchange = () => {
-      this.intervalSec = this._getSanitizedIntValue(input, this.intervalSec);
+    const intervalInput = document.createElement('input');
+    intervalInput.setAttribute('type', 'number');
+    intervalInput.setAttribute('min', 1);
+    intervalInput.setAttribute('max', 30);
+    intervalInput.setAttribute('value', this.intervalSec);
+    intervalInput.onchange = () => {
+      this.intervalSec = this._getSanitizedIntValue(intervalInput, this.intervalSec);
     };
 
-    const label = document.createElement('label');
-    label.append('Toggle interval (sec)', input);
+    const intervalLabel = document.createElement('label');
+    intervalLabel.append('Toggle interval (sec)', intervalInput);
 
-    this.element = label;
+    this.element = intervalLabel;
   }
 
   startToggling() {
