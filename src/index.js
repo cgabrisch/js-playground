@@ -4,6 +4,13 @@ import { testObservables } from './observables.js';
 
 testObservables();
 
-document.body.appendChild(helloWorldDemo.htmlElement);
+const main = document.createElement('main');
+const nav = document.createElement('nav');
+document.body.append(nav, main);
 
-document.body.appendChild(tickerDemo.htmlElement);
+[helloWorldDemo, tickerDemo].forEach(demo => {
+  const div = document.createElement('div');
+  div.append(demo.title);
+  nav.appendChild(div);
+  main.appendChild(demo.htmlElement);
+})
