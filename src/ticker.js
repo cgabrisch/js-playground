@@ -143,4 +143,11 @@ class TickerComponentController {
   }
 }
 
-export { TickerComponent, TickerComponentController, TickerModes };
+
+const tickerComp = new TickerComponent(500);
+const tickerCompController = new TickerComponentController(tickerComp);
+
+const tickerDemo = { title: 'Ticker', htmlElement: document.createElement('div') };
+tickerDemo.htmlElement.append(tickerCompController.element, tickerComp.element);
+
+export { tickerDemo };
