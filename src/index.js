@@ -1,3 +1,4 @@
+import './style.css';
 import { helloWorldDemo } from './helloworld.js';
 import { tickerDemo } from './ticker.js';
 import { testObservables } from './observables.js';
